@@ -64,7 +64,32 @@ function getForecast(city) {
   apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
   axios(apiUrl).then(displayForecast);
 }
-
+function displayForecast(response) {
+  //declaring an an empty string to handle the html for all the 5 days
+  let forecastHTML = "";
+  response.data.daily.forEach(function (day, index) {
+    //so it stops on index 4 where the days will be only 5rm:index starts at 0
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="weather-forecast-day">
+            <div class="weather-forecast-date">${formatDay(day.time)}</div>
+            <img src="${day.condition.icon_url}" class="weather-forecast-icon"/>
+            <div class="weather-forecast-temperature">
+              <div class="weather-forecast-temperature-max">
+                <strong>${Math.round(day.temperature.maximum)}º</strong>
+              </div>
+              <div class="weather-forecast-temperature-min">${Math.round(
+                day.temperature.minimum
+              )}º</div>
+            </div>
+        </div>
+            `;
+    }
+  });
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = forecastHTML;
+}
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 searchCity("Paris");
