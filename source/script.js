@@ -58,6 +58,12 @@ function formatDay(timestamp) {
 
   return days[date.getDay()];
 }
+//used the sheCodes.io api to get the forecast
+function getForecast(city) {
+  apiKey = "409358oa0b2d74cc98fa66aabc1789t2";
+  apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios(apiUrl).then(displayForecast);
+}
 
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
