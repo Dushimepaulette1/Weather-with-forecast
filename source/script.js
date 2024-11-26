@@ -79,7 +79,7 @@ function displayForecast(response) {
               <div class="weather-forecast-temperature-max">
                 <strong>${Math.round(day.temperature.maximum)}º</strong>
               </div>
-              <div class="weather-forecast-temperature-min">${Math.round(
+              <div class="weather-forecast-temperature">${Math.round(
                 day.temperature.minimum
               )}º</div>
             </div>
@@ -93,4 +93,3 @@ function displayForecast(response) {
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 searchCity("Rwanda");
-displayForecast();
