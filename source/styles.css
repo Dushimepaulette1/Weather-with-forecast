@@ -103,6 +103,15 @@ main {
   margin-top: 10px;
   display: flex;
   justify-content: center;
+  gap: 10px;
+}
+.weather-forecast-temperature-max {
+  color: #f65282; /* Highlight max temp */
+  font-weight: bold;
+}
+
+.weather-forecast-temperature-min {
+  color: rgba(39, 33, 66, 0.6); /* Lighter for min temp */
 }
 
 .weather-forecast-temperature {
