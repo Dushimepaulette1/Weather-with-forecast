@@ -11,6 +11,7 @@ fetch("config.json")
     console.error("Error loading API keys:", error);
     alert("Unable to load API keys. Please check the setup.");
   });
+
 function refreshWeather(response) {
   let temperatureElement = document.querySelector("#temperature");
   let temperature = response.data.temperature.current;
@@ -32,6 +33,7 @@ function refreshWeather(response) {
 
   getForecast(response.data.city);
 }
+
 function formatDate(date) {
   let minutes = date.getMinutes();
   let hours = date.getHours();
@@ -68,16 +70,15 @@ function searchCity(city) {
 function handleSearchSubmit(event) {
   event.preventDefault();
   let searchInput = document.querySelector("#search-form-input");
-
   searchCity(searchInput.value);
 }
+
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
   return days[date.getDay()];
 }
-//used the sheCodes.io api to get the forecast
+
 function getForecast(city) {
   const apiKey = API_KEYS.FORECAST_API_KEY;
   const apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
@@ -89,11 +90,10 @@ function getForecast(city) {
       alert("Unable to fetch forecast data. Please try again later.");
     });
 }
+
 function displayForecast(response) {
-  //declaring an an empty string to handle the html for all the 5 days
   let forecastHTML = "";
   response.data.daily.forEach(function (day, index) {
-    //so it stops on index 4 where the days will be only 5rm:index starts at 0
     if (index < 5) {
       forecastHTML += `<div class="weather-forecast-day">
             <div class="weather-forecast-date">${formatDay(day.time)}</div>
@@ -106,13 +106,12 @@ function displayForecast(response) {
                 day.temperature.minimum
               )}º</div>
             </div>
-        </div>
-            `;
+        </div>`;
     }
   });
   let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML = forecastHTML;
 }
+
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
-searchCity("Paris");
