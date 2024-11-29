@@ -1,3 +1,16 @@
+let API_KEYS = {};
+
+// Load API keys from config.json
+fetch("config.json")
+  .then((response) => response.json())
+  .then((config) => {
+    API_KEYS = config;
+    searchCity("Paris"); // Default city after loading keys
+  })
+  .catch((error) => {
+    console.error("Error loading API keys:", error);
+    alert("Unable to load API keys. Please check the setup.");
+  });
 function refreshWeather(response) {
   let temperatureElement = document.querySelector("#temperature");
   let temperature = response.data.temperature.current;
@@ -41,9 +54,15 @@ function formatDate(date) {
 }
 
 function searchCity(city) {
-  let apiKey = "b2a5adcct04b33178913oc335f405433";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
-  axios.get(apiUrl).then(refreshWeather);
+  const apiKey = API_KEYS.CURRENT_WEATHER_API_KEY;
+  const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
+  axios
+    .get(apiUrl)
+    .then(refreshWeather)
+    .catch((error) => {
+      console.error("Error fetching current weather:", error);
+      alert("Unable to fetch weather data. Please try again later.");
+    });
 }
 
 function handleSearchSubmit(event) {
