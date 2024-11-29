@@ -79,9 +79,15 @@ function formatDay(timestamp) {
 }
 //used the sheCodes.io api to get the forecast
 function getForecast(city) {
-  apiKey = "409358oa0b2d74cc98fa66aabc1789t2";
-  apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
-  axios(apiUrl).then(displayForecast);
+  const apiKey = API_KEYS.FORECAST_API_KEY;
+  const apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios
+    .get(apiUrl)
+    .then(displayForecast)
+    .catch((error) => {
+      console.error("Error fetching forecast data:", error);
+      alert("Unable to fetch forecast data. Please try again later.");
+    });
 }
 function displayForecast(response) {
   //declaring an an empty string to handle the html for all the 5 days
