@@ -1,4 +1,4 @@
-# Weather Application 🌤️
+# Weather with forecast Application 🌤️
 
 This project is a weather app that displays current weather and a 5-day forecast using the [SheCodes Weather API](https://www.shecodes.io/learn/apis/weather). The app is deployed to web-01 and web-02 servers with Nginx, configured for load balancing.
 
