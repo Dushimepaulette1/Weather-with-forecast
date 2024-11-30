@@ -1,26 +1,28 @@
-let API_KEYS = {};
+let API_KEYS = {}; // Object to store API keys loaded from a configuration file
 
-// Load API keys from config.json
+// Loaded API keys from external config.json file
 fetch("config.json")
-  .then((response) => response.json())
+  .then((response) => response.json()) // Convert the file content to JSON
   .then((config) => {
-    API_KEYS = config;
-    searchCity("Paris"); // Default city after loading keys
+    API_KEYS = config; // Save the keys in the global object
+    searchCity("Paris"); // // Load default weather data for Paris after keys are ready
   })
   .catch((error) => {
-    console.error("Error loading API keys:", error);
-    alert("Unable to load API keys. Please check the setup.");
+    console.error("Error loading API keys:", error); //Log if the file fails to load
+    alert("Unable to load API keys. Please check the setup."); //Notify the user
   });
+/*Updates the weather details on the page using data from the API response.
+ */
 
 function refreshWeather(response) {
   let temperatureElement = document.querySelector("#temperature");
-  let temperature = response.data.temperature.current;
+  let temperature = response.data.temperature.current; //// Current temperature in the city
   let cityElement = document.querySelector("#city");
   let descriptionElement = document.querySelector("#description");
   let humidityElement = document.querySelector("#humidity");
   let windSpeedElement = document.querySelector("#wind-speed");
   let timeElement = document.querySelector("#time");
-  let date = new Date(response.data.time * 1000);
+  let date = new Date(response.data.time * 1000); //// Convert timestamp to a Date object
   let iconElement = document.querySelector("#icon");
 
   cityElement.innerHTML = response.data.city;
